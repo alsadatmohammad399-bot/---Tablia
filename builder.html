@@ -9,36 +9,37 @@
 </head>
 <body class="bg-[#0a0a0a] text-white">
 <div class="max-w-6xl mx-auto p-4 flex justify-between items-center border-b border-white/10">
-<div class="flex gap-2 items-center"><div class="bg-[#FFD700] text-black w-10 h-10 rounded-full flex items-center justify-center font-black">ط</div><b>طبلية BUILDER</b></div>
-<a href="index.html" class="text-xs bg-white/10 px-3 py-1 rounded-full">رجوع</a>
+<div class="flex gap-2 items-center"><div class="bg-[#FFD700] text-black w-10 h-10 rounded-full flex items-center justify-center font-black">ط</div><b>طبلية BUILDER V2</b></div>
+<a href="index.html" class="text-xs bg-white/10 px-3 py-2 rounded-full">رجوع</a>
 </div>
 <div class="max-w-6xl mx-auto p-4 grid md:grid-cols-2 gap-6 mt-4">
-<div class="bg-[#141414] p-6 rounded-[24px] border border-white/10">
+<div class="bg-[#141414] p-6 rounded-[24px] border border-white/10 h-fit">
 <h2 class="font-black text-xl mb-4">1- بيانات مطعمك</h2>
-<input id="r-name" placeholder="اسم المطعم - مثلا: بازوكا" class="w-full bg-black border border-white/20 p-4 rounded-xl mb-3">
-<input id="r-color1" type="color" value="#FFD700" class="h-12 w-full rounded-xl mb-3">
-<textarea id="r-menu-text" placeholder="اكتب المنيو:
-كباب ضاني 1100
-كفتة 650
-شيش طاووق 380" class="w-full bg-black border border-white/20 p-4 rounded-xl h-32 text-sm"></textarea>
-<button onclick="build()" class="w-full bg-[#FFD700] text-black py-4 rounded-xl mt-4 font-black">شوف المعاينة 👁️</button>
+<input id="r-name" placeholder="اسم المطعم" class="w-full bg-black border border-white/20 p-4 rounded-xl mb-3 outline-none focus:border-[#FFD700]">
+<input id="r-phone" placeholder="رقم الواتساب - 2010xxxx" class="w-full bg-black border border-white/20 p-4 rounded-xl mb-3 outline-none">
+<textarea id="r-menu" placeholder="اكتب المنيو كل سطر صنف وسعر:
+كبدة سجق 85
+كبدة اسكندراني 95
+ساندوتش كبدة مصر 120" class="w-full bg-black border border-white/20 p-4 rounded-xl h-40 text-sm outline-none"></textarea>
+<button onclick="build()" class="w-full bg-[#FFD700] text-black py-4 rounded-xl mt-4 font-black text-lg">شوف المعاينة 👁️</button>
 </div>
 <div>
 <h2 class="font-black text-xl mb-4">2- اختار ستايلك</h2>
 <div class="grid grid-cols-2 gap-3">
-<div onclick="sel('bazooka')" id="s-bazooka" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-[#FFD700]"><div class="bg-black rounded-xl h-24"></div><p class="font-black mt-2 text-sm">🔥 بازوكا</p></div>
-<div onclick="sel('sultan')" id="s-sultan" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-gradient-to-r from-orange-600 to-red-600 rounded-xl h-24"></div><p class="font-black mt-2 text-sm">👑 السلطان</p></div>
-<div onclick="sel('tablia')" id="s-tablia" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-[#0f0f0f] border border-[#FFD700]/30 rounded-xl h-24"></div><p class="font-black mt-2 text-sm">⭐ طبلية - ستايلك</p></div>
-<div onclick="sel('classic')" id="s-classic" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-white rounded-xl h-24"></div><p class="font-black mt-2 text-sm text-white">🤍 كلاسيك</p></div>
+<div onclick="sel('bazooka')" id="s-bazooka" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-[#FFD700]"><div class="bg-black rounded-xl h-24 flex items-center justify-center text-2xl">🔥</div><p class="font-black mt-2 text-sm">بازوكا</p></div>
+<div onclick="sel('sultan')" id="s-sultan" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-gradient-to-r from-orange-600 to-red-600 rounded-xl h-24"></div><p class="font-black mt-2 text-sm">السلطان</p></div>
+<div onclick="sel('tablia')" id="s-tablia" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-[#0f0f0f] border border-[#FFD700]/30 rounded-xl h-24 flex items-center justify-center text-[#FFD700]">⭐ TABLIA</div><p class="font-black mt-2 text-sm">طبلية</p></div>
+<div onclick="sel('classic')" id="s-classic" class="cursor-pointer bg-[#141414] p-3 rounded-[20px] border-2 border-transparent"><div class="bg-white rounded-xl h-24"></div><p class="font-black mt-2 text-sm">كلاسيك</p></div>
 </div>
-<div id="prev" class="mt-6 bg-black rounded-[24px] p-2 border border-white/10 hidden"><div id="frame" class="bg-white rounded-[20px] h-[400px] overflow-auto p-2 text-black text-sm"></div><button onclick="publish()" class="w-full bg-white text-black py-4 rounded-xl mt-3 font-black">🚀 انسخ رابط موقعك</button></div>
+<div id="prev" class="mt-6 bg-black rounded-[24px] p-2 border border-white/10 hidden"><div id="frame" class="bg-white rounded-[20px] h-[500px] overflow-auto"></div><button onclick="publish()" class="w-full bg-[#25D366] text-white py-4 rounded-xl mt-3 font-black">🚀 انسخ رابط موقعك + واتساب</button><p id="link" class="text-[10px] text-white/30 mt-2 break-all text-center"></p></div>
 </div>
 </div>
 <script>
-let style='bazooka', items=[];
-function sel(s){style=s; document.querySelectorAll('[id^=s-]').forEach(e=>e.classList.remove('border-[#FFD700]')); document.getElementById('s-'+s).classList.add('border-[#FFD700]'); build();}
-function build(){const name=document.getElementById('r-name').value||'مطعمك'; let t=document.getElementById('r-menu-text').value.trim(); if(t){items=t.split('\n').map(l=>{const m=l.match(/(.+?)\s+(\d+)/); return m?{n:m[1].trim(),p:parseInt(m[2])}:null}).filter(Boolean);} if(items.length==0) items=[{n:'وجبة تجريبية',p:250}]; document.getElementById('prev').classList.remove('hidden'); const f=document.getElementById('frame'); if(style=='bazooka') f.innerHTML=`<div class="bg-black text-white p-2 rounded font-black">${name} - BAZOOKA</div>${items.map(i=>`<div class="bg-white border p-2 rounded-xl mt-2 flex justify-between"><span>${i.n}</span><b>${i.p}ج</b></div>`).join('')}`; if(style=='sultan') f.innerHTML=`<div class="bg-gradient-to-r from-orange-500 to-red-600 p-2 rounded text-white font-black">${name}</div>${items.map(i=>`<div class="border p-2 rounded-xl mt-2 flex justify-between"><span>${i.n}</span><b class="text-orange-600">${i.p}ج</b></div>`).join('')}`; if(style=='tablia') f.innerHTML=`<div class="bg-black text-[#FFD700] p-3 rounded-xl font-black">⭐ ${name} - TABLIA</div>${items.map(i=>`<div class="bg-[#111] text-white border border-[#FFD700]/20 p-2 rounded-xl mt-2 flex justify-between"><span>${i.n}</span><b class="text-[#FFD700]">${i.p}ج</b></div>`).join('')}`; if(style=='classic') f.innerHTML=`<div class="p-2 font-black border-b">${name}</div>${items.map(i=>`<div class="flex justify-between p-2 border-b"><span>${i.n}</span><span>${i.p}ج</span></div>`).join('')}`;}
-function publish(){const name=document.getElementById('r-name').value||'myrestaurant'; const slug=name.replace(/\s+/g,'-'); const link=`https://alsadat.github.io/Tablia/template.html?name=${slug}&style=${style}`; navigator.clipboard.writeText(link); alert('لينك موقعك اتنسخ 🔥\n'+link);}
+let style='bazooka', items=[], phone='', rname='';
+function sel(s){style=s; document.querySelectorAll('[id^=s-]').forEach(e=>{e.classList.remove('border-[#FFD700]'); e.classList.add('border-transparent')}); document.getElementById('s-'+s).classList.remove('border-transparent'); document.getElementById('s-'+s).classList.add('border-[#FFD700]'); build();}
+function parseMenu(){let t=document.getElementById('r-menu').value.trim(); if(!t) return [{n:'ساندوتش كبدة',p:95}]; return t.split('\n').map(l=>{const m=l.match(/(.+?)\s+(\d+)/); return m?{n:m[1].trim(),p:parseInt(m[2])}:null}).filter(Boolean);}
+function build(){rname=document.getElementById('r-name').value||'كبدة مصر'; phone=document.getElementById('r-phone').value||'201000000000'; items=parseMenu(); document.getElementById('prev').classList.remove('hidden'); const f=document.getElementById('frame'); let html=''; const list=items.map(i=>`<div class="bg-white text-black border p-3 rounded-2xl mt-2 flex justify-between items-center"><span class="font-bold">${i.n}</span><b>${i.p}ج</b></div>`).join(''); if(style=='bazooka') html=`<div class="bg-black text-white p-4"><h1 class="font-black text-xl">${rname.toUpperCase()}</h1></div><div class="p-3">${list}</div>`; if(style=='sultan') html=`<div class="bg-gradient-to-r from-orange-600 to-red-600 text-white p-5"><h1 class="font-black text-2xl">${rname}</h1></div><div class="p-3">${list}</div>`; if(style=='tablia') html=`<div class="bg-[#111] text-white p-4 flex justify-between"><h1 class="font-black text-xl text-[#FFD700]">⭐ ${rname}</h1></div><div class="p-3 bg-[#0a0a0a]">${items.map(i=>`<div class="bg-[#1a1a1a] border border-[#FFD700]/20 p-3 rounded-2xl mt-2 flex justify-between"><span class="text-white">${i.n}</span><b class="text-[#FFD700]">${i.p}ج</b></div>`).join('')}</div>`; if(style=='classic') html=`<div class="p-4 text-center border-b font-black text-lg">${rname}</div><div class="p-2">${items.map(i=>`<div class="flex justify-between p-3 border-b"><span>${i.n}</span><span>${i.p}ج</span></div>`).join('')}</div>`; f.innerHTML=html;}
+function publish(){const m=encodeURIComponent(JSON.stringify(items)); const link=`https://alsadat.github.io/Tablia/template.html?name=${encodeURIComponent(rname)}&style=${style}&phone=${phone}&menu=${m}`; navigator.clipboard.writeText(link); document.getElementById('link').innerText=link; alert('تم نسخ رابط مطعمك 🔥\n'+link);}
 </script>
 </body>
 </html>
