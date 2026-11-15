@@ -4,22 +4,33 @@
 <meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title id="t-title">طبلية</title>
 <script src="https://cdn.tailwindcss.com"></script>
-<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@900&display=swap" rel="stylesheet">
-<style>body{font-family:Cairo}</style>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700;900&display=swap" rel="stylesheet">
+<style>body{font-family:Cairo} .cart{position:fixed;bottom:0;left:0;right:0;z-index:50}</style>
 </head>
-<body id="body" class="bg-black">
-<div id="app" class="min-h-screen"></div>
+<body id="body" class="bg-black pb-28">
+<div id="app"></div>
+<div id="cart-bar" class="cart bg-white p-4 rounded-t-[24px] shadow-[0_-10px_30px_rgba(0,0,0,0.3)] hidden">
+<div class="flex justify-between items-center"><b id="cart-count">0 صنف</b><b id="cart-total">0ج</b></div>
+<button id="wa-btn" class="w-full bg-[#25D366] text-white py-4 rounded-xl mt-3 font-black">اطلب واتساب 🟢</button>
+</div>
 <script>
 const p=new URLSearchParams(location.search);
-const name=p.get('name')||'مطعم طبلية';
+const name=decodeURIComponent(p.get('name')||'كبدة مصر');
 const style=p.get('style')||'tablia';
+const phone=p.get('phone')||'201000000000';
+let menu=[]; try{menu=JSON.parse(decodeURIComponent(p.get('menu')||''));}catch(e){menu=[{n:'كبدة اسكندراني',p:95},{n:'سجق',p:85}]}
 document.getElementById('t-title').innerText=name;
 const app=document.getElementById('app');
-const menu=[{n:'كباب ضاني 400جم',p:1100},{n:'كفتة الحاتي',p:650},{n:'شيش طاووق',p:380}];
-if(style=='bazooka'){app.innerHTML=`<div class="bg-black text-white p-6"><h1 class="text-4xl font-black text-[#FFD700]">${name.toUpperCase()}</h1></div><div class="p-4 grid gap-3">${menu.map(i=>`<div class="bg-white p-4 rounded-2xl flex justify-between font-black"><span>${i.n}</span><span class="bg-black text-white px-3 rounded-full">${i.p}ج</span></div>`).join('')}</div>`}
-else if(style=='sultan'){app.innerHTML=`<div class="bg-gradient-to-br from-orange-600 to-red-600 text-white p-8"><h1 class="text-4xl font-black">${name}</h1><p class="opacity-80">أصل الأكل الشرقي</p></div><div class="p-4">${menu.map(i=>`<div class="bg-white p-4 rounded-2xl flex justify-between mt-3"><span>${i.n}</span><b class="text-orange-600">${i.p}ج</b></div>`).join('')}</div>`; document.getElementById('body').className='bg-orange-50'}
-else if(style=='tablia'){app.innerHTML=`<div class="p-6 flex justify-between"><div><h1 class="text-3xl font-black text-white">⭐ ${name}</h1><p class="text-[#FFD700] text-sm">POWERED BY TABLIA</p></div><div class="bg-[#FFD700] w-10 h-10 rounded-full flex items-center justify-center text-black font-black">ط</div></div><div class="p-4 grid gap-3">${menu.map(i=>`<div class="bg-[#161616] border border-[#FFD700]/20 p-4 rounded-2xl flex justify-between"><span class="text-white font-bold">${i.n}</span><span class="text-[#FFD700] font-black">${i.p}ج</span></div>`).join('')}</div>`}
-else{app.innerHTML=`<div class="bg-white p-6 text-center"><h1 class="text-3xl font-black">${name}</h1></div><div class="p-4">${menu.map(i=>`<div class="flex justify-between p-4 border-b"><span>${i.n}</span><span>${i.p}ج</span></div>`).join('')}</div>`; document.getElementById('body').className='bg-white text-black'}
+let cart=[];
+function add(n,p){cart.push({n,p}); renderCart();}
+function renderCart(){const bar=document.getElementById('cart-bar'); if(cart.length==0){bar.classList.add('hidden');return;} bar.classList.remove('hidden'); document.getElementById('cart-count').innerText=cart.length+' أصناف'; const total=cart.reduce((a,b)=>a+b.p,0); document.getElementById('cart-total').innerText=total+'ج'; document.getElementById('wa-btn').onclick=()=>{const txt=cart.map(c=>`- ${c.n} ${c.p}ج`).join('%0A'); const msg=`السلام عليكم مطعم ${name}%0Aعايز اطلب:%0A${txt}%0Aالاجمالي: ${total}ج`; window.open(`https://wa.me/${phone}?text=${msg}`,'_blank');}}
+let html='';
+const itemsHtml=menu.map(i=>`<div class="flex justify-between items-center bg-white p-4 rounded-[18px] mt-3 shadow-sm"><div><p class="font-bold text-sm">${i.n}</p><p class="text-xs text-black/50">${i.p}ج</p></div><button onclick="add('${i.n}',${i.p})" class="bg-black text-white w-9 h-9 rounded-full font-black">+</button></div>`).join('');
+if(style=='tablia'){document.getElementById('body').className='bg-[#080808] pb-28'; html=`<div class="p-5 flex justify-between items-center"><h1 class="text-2xl font-black text-[#FFD700]">⭐ ${name}</h1><div class="bg-[#FFD700] w-8 h-8 rounded-full flex items-center justify-center font-black text-black">ط</div></div><div class="px-4">${menu.map(i=>`<div class="flex justify-between items-center bg-[#151515] border border-[#FFD700]/20 p-4 rounded-[18px] mt-3"><div><p class="font-bold text-white text-sm">${i.n}</p><p class="text-[#FFD700] text-xs">${i.p}ج</p></div><button onclick="add('${i.n}',${i.p})" class="bg-[#FFD700] text-black w-9 h-9 rounded-full font-black">+</button></div>`).join('')}</div>`}
+else if(style=='bazooka'){html=`<div class="bg-black text-white p-5"><h1 class="text-3xl font-black">${name.toUpperCase()}</h1><p class="text-[#FFD700] text-xs">BAZOOKA STYLE</p></div><div class="p-3">${itemsHtml}</div>`}
+else if(style=='sultan'){document.getElementById('body').className='bg-orange-50 pb-28'; html=`<div class="bg-gradient-to-br from-orange-600 to-red-600 text-white p-6 rounded-b-[32px]"><h1 class="text-3xl font-black">${name}</h1></div><div class="p-3">${itemsHtml}</div>`}
+else{document.getElementById('body').className='bg-[#f5f5f5] pb-28 text-black'; html=`<div class="bg-white p-6 text-center"><h1 class="text-2xl font-black">${name}</h1></div><div class="p-3">${itemsHtml}</div>`}
+app.innerHTML=html;
 </script>
 </body>
 </html>
